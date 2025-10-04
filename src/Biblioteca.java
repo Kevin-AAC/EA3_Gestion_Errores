@@ -11,24 +11,26 @@ public class Biblioteca {
 
     public Biblioteca(String nombre, List<Usuario> usuarios, List<Libro> catalogo) {
         this.nombre = nombre;
-        this.catalogo = new ArrayList<>();
-        this.usuarios = new ArrayList<>();
+        this.catalogo = (catalogo != null) ? catalogo : new ArrayList<>();
+        this.usuarios = (usuarios != null) ? usuarios : new ArrayList<>();
     }
 
     public void agregarLibro(Libro libro){
         catalogo.add(libro);
     }
-
     public List<Libro> buscarPorTitulo(String titulo){
-        return catalogo.stream().filter(libro -> libro.getTitulo().equalsIgnoreCase(titulo))
+       return catalogo.stream().filter(libro -> libro.getTitulo().equalsIgnoreCase(titulo))
                 .collect(Collectors.toList());
 
     }
 
-
-
     public void agregarUsuario(Usuario usuario){
         usuarios.add(usuario);
+    }
+
+    public Usuario buscarUsuario(String cedula){
+        return usuarios.stream().filter(usuario -> usuario.getCedula().equalsIgnoreCase(cedula))
+                .findFirst().orElse(null);
     }
 
     public String getNombre() {
